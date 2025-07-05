@@ -67,3 +67,4 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 alias dotsync="cd ~/dotfiles && git add . && git commit -m \"Update configs\" && git push"
+alias dotsync-all="~/dotfiles/scripts/sync-all.sh"
