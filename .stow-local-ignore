@@ -1,0 +1,10 @@
+\.git
+\.gitignore
+\.stow-local-ignore
+^/README.*
+^/LICENSE.*
+^/COPYING
+^/docs
+^/scripts
+install\.sh
+backup-existing\.sh

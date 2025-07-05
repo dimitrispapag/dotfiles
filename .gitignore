@@ -1,0 +1,63 @@
+     1	# OS generated files
+     2	.DS_Store
+     3	.DS_Store?
+     4	._*
+     5	.Spotlight-V100
+     6	.Trashes
+     7	ehthumbs.db
+     8	Thumbs.db
+     9	
+    10	# Editor files
+    11	*.swp
+    12	*.swo
+    13	*~
+    14	.vscode/
+    15	.idea/
+    16	
+    17	# Logs and caches
+    18	*.log
+    19	.config/*/cache/
+    20	.config/*/Cache/
+    21	.config/*/logs/
+    22	.config/*/log/
+    23	.config/*/tmp/
+    24	.config/*/temp/
+    25	
+    26	# Sensitive data
+    27	**/*password*
+    28	**/*secret*
+    29	**/*token*
+    30	**/*key*
+    31	.config/*/passwords/
+    32	.config/*/keys/
+    33	
+    34	# Large application data
+    35	.config/discord/
+    36	.config/spotify/
+    37	.config/slack/
+    38	.config/teams/
+    39	.config/google-chrome/
+    40	.config/firefox/
+    41	.config/chromium/
+    42	
+    43	# System files
+    44	.config/pulse/
+    45	.config/systemd/
+    46	.config/dconf/
+    47	.config/gconf/
+    48	
+    49	# Recently used and session files
+    50	.config/*/recently-used*
+    51	.config/*/recent*
+    52	.config/*/session/
+    53	.config/*/sessions/
+    54	.config/*/state/
+    55	.config/*/State/
+    56	
+    57	# Thumbnails
+    58	.config/*/thumbnails/
+    59	
+    60	# Backup files
+    61	*~
+    62	*.backup
+    63	*.bak
