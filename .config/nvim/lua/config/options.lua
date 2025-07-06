@@ -22,3 +22,16 @@ vim.opt.colorcolumn = "88"
 
 -- Python-specific settings
 vim.g.python3_host_prog = vim.fn.exepath('python3')
+
+-- Highlight on yank
+local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+vim.api.nvim_create_autocmd('TextYankPost', {
+    callback = function()
+        vim.highlight.on_yank({
+            higroup = 'IncSearch', -- You can change this to any highlight group
+            timeout = 200,   -- Duration in milliseconds
+        })
+    end,
+    group = highlight_group,
+    pattern = '*',
+})

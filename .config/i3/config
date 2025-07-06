@@ -222,7 +222,6 @@ workspace 10 output DP-2 4 output DP-2
 
 # Add these to i3 config for better Discord control:
 
-
 # Quick Discord toggle (scratchpad style)
 for_window [class="discord"] floating enable, move scratchpad
 bindsym $mod+Shift+d [class="discord"] scratchpad show
@@ -235,6 +234,6 @@ exec --no-startup-id picom --config ~/.config/picom/picom.conf
 # Basic wallpaper (scales to fit screen)
 exec --no-startup-id feh --bg-scale /home/dimitris/Pictures/wallpapers/wp15260847-sunset-desktop-4k-wallpapers.jpg --bg-scale /home/dimitris/Pictures/wallpapers/wp5575889-25601440-wallpapers.jpg
 
-# Set screen timeout to 30 min. 
-
-exec --no-startup-id xset dpms 1800 1800 1800
+# Disable screensaver and set DPMS with delay
+exec --no-startup-id xset s off
+exec --no-startup-id sleep 5 && xset dpms 1800 1800 1800
