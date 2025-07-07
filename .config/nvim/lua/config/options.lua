@@ -19,6 +19,7 @@ vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 vim.opt.colorcolumn = "88"
+vim.opt.clipboard = "unnamedplus"
 
 -- Python-specific settings
 vim.g.python3_host_prog = vim.fn.exepath('python3')
