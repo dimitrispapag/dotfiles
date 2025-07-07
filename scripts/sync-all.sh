@@ -34,9 +34,11 @@ CONFIG_DIRS=(
 
 # Sync individual dotfiles
 for file in "${DOTFILES[@]}"; do
-    if [[ -f ~/$file ]]; then
+    if [[ -f ~/$file ]] && [[ ! -L ~/$file ]]; then
         cp ~/$file ~/dotfiles/
         echo "✓ Synced $file"
+    elif [[ -L ~/$file ]]; then
+        echo "↷ Skipped $file (symlink)"
     fi
 done
 
@@ -57,8 +59,15 @@ if [[ -n $(git status -s) ]]; then
     # Add all changes
     git add .
     
-    # Commit with timestamp
-    git commit -m "Sync dotfiles: $(date '+%Y-%m-%d %H:%M')"
+    # Use custom message if provided, otherwise use timestamp
+    if [[ -n "$1" ]]; then
+        COMMIT_MSG="$*"
+    else
+        COMMIT_MSG="Sync dotfiles: $(date '+%Y-%m-%d %H:%M')"
+    fi
+    
+    # Commit with message
+    git commit -m "$COMMIT_MSG"
     
     # Push to remote
     git push
