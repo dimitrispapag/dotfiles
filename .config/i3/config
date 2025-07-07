@@ -190,21 +190,25 @@ client.background       #FFFFFF
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
+
 bar {
-  colors {
-    background #000000
-    statusline #FFFFFF
-    separator  #666666
-
-    focused_workspace  #83CAFA #51A2DA #FFFFFF
-    active_workspace   #3C6EB4 #294172 #FFFFFF
-    inactive_workspace #8C8C8C #4C4C4C #888888
-    urgent_workspace   #EC69A0 #DB3279 #FFFFFF
-    binding_mode       #b691d3 #A07CBC #FFFFFF
-  }
-  status_command i3blocks
+    status_command i3blocks
+    position bottom
+    tray_output primary
+    font pango:JetBrainsMono Nerd Font 14
+    
+    colors {
+        background #282a36
+        statusline #f8f8f2
+        separator  #44475a
+        
+        # workspace colors        border  backgr. text
+        focused_workspace  #bd93f9 #bd93f9 #282a36
+        active_workspace   #bd93f9 #282a36 #f8f8f2
+        inactive_workspace #282a36 #282a36 #6272a4
+        urgent_workspace   #ff5555 #ff5555 #f8f8f2
+    }
 }
-
 # Monitor configuration
 exec --no-startup-id xrandr --output DP-0 --primary --mode 2560x1440 --rate 144.00 --pos 0x0 --output DP-2 --mode 2560x1440 --rate 74.92 --pos 2560x0
 
