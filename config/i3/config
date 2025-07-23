@@ -1,0 +1,287 @@
+# Enhanced i3 config with visual improvements
+# Based on your existing setup with added visual enhancements
+
+# Modifier key (Super/Windows key)
+set $mod Mod4
+
+# Enhanced font with better sizing
+font pango:JetBrainsMono Nerd Font 11
+
+# ===== VISUAL ENHANCEMENTS =====
+
+# Window borders and gaps
+default_border pixel 2
+default_floating_border pixel 2
+hide_edge_borders smart
+
+# Gaps between windows
+gaps inner 8
+gaps outer 4
+
+# Smart gaps (no gaps when only one window)
+smart_gaps on
+
+# Enhanced color scheme (Dracula with transparency support)
+client.focused          #bd93f9 #bd93f9 #f8f8f2 #bd93f9   #bd93f9
+client.focused_inactive #6272a4 #6272a4 #f8f8f2 #6272a4   #6272a4  
+client.unfocused        #44475a #282a36 #bfbfbf #44475a   #44475a
+client.urgent           #ff5555 #ff5555 #f8f8f2 #ff5555   #ff5555
+client.placeholder      #282a36 #282a36 #f8f8f2 #282a36   #282a36
+client.background       #282a36
+
+# ===== AUTOSTART APPLICATIONS =====
+
+# Start XDG autostart applications
+exec --no-startup-id dex-autostart --autostart --environment i3
+
+# Security and session management
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+
+# Network manager applet
+exec --no-startup-id nm-applet
+
+# Compositor for visual effects (with GLX backend)
+exec --no-startup-id picom --backend glx --config ~/.config/picom/picom.conf
+
+# Monitor configuration with 144Hz support
+exec --no-startup-id xrandr --output DP-0 --primary --mode 2560x1440 --rate 144.00 --pos 0x0 --output DP-2 --mode 2560x1440 --rate 74.92 --pos 2560x0
+
+# Wallpaper
+exec --no-startup-id feh --bg-scale ~/Pictures/wallpapers/4k-Arch-Dark-Background.png
+
+# Power management
+exec --no-startup-id xset s off
+exec --no-startup-id sleep 5 && xset dpms 1800 1800 1800
+
+# Auto-start applications (delayed to avoid overwhelming system)
+exec --no-startup-id sleep 10 && steam -silent
+exec --no-startup-id sleep 15 && discord --start-minimized
+
+# ===== AUDIO CONTROLS =====
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# ===== WINDOW MANAGEMENT =====
+
+# Use Mouse+$mod to drag floating windows
+floating_modifier $mod
+
+# Start a terminal
+bindsym $mod+Return exec kitty
+
+# Kill focused window
+bindsym $mod+Shift+q kill
+
+# Program launcher (rofi with theme)
+bindcode $mod+40 exec "rofi -modi drun,run -show drun 
+
+# ===== NAVIGATION =====
+
+# Change focus (vim-style)
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+
+# Change focus (arrow keys)
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move focused window (vim-style)
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+colon move right
+
+# Move focused window (arrow keys)
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# ===== LAYOUT CONTROLS =====
+
+# Split in horizontal orientation
+bindsym $mod+h split h
+
+# Split in vertical orientation  
+bindsym $mod+v split v
+
+# Enter fullscreen mode
+bindsym $mod+f fullscreen toggle
+
+# Change container layout
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# Change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# Focus the parent container
+bindsym $mod+a focus parent
+
+# ===== VISUAL LAYOUT ENHANCEMENTS =====
+
+# Master-stack shortcuts
+bindsym $mod+m split h; focus right; split v; focus left
+bindsym $mod+Shift+m move left; move left; move left
+bindsym $mod+Ctrl+h resize shrink width 10 px or 10 ppt
+bindsym $mod+Ctrl+l resize grow width 10 px or 10 ppt
+
+# Gap controls
+bindsym $mod+plus gaps inner current plus 5
+bindsym $mod+minus gaps inner current minus 5
+bindsym $mod+Shift+plus gaps outer current plus 5
+bindsym $mod+Shift+minus gaps outer current minus 5
+bindsym $mod+Ctrl+plus gaps inner all plus 5
+bindsym $mod+Ctrl+minus gaps inner all minus 5
+
+# ===== WORKSPACES =====
+
+# Define workspace variables
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# Switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# ===== MONITOR ASSIGNMENTS =====
+
+# Assign workspaces to specific monitors
+workspace 1 output DP-0
+workspace 2 output DP-0
+workspace 3 output DP-2
+workspace 4 output DP-2
+workspace 5 output DP-0
+workspace 6 output DP-0
+workspace 7 output DP-2
+workspace 8 output DP-2
+workspace 9 output DP-0
+workspace 10 output DP-2
+
+# ===== APPLICATION-SPECIFIC RULES =====
+
+# Steam windows
+assign [class="steam"] workspace number 8
+assign [class="Steam"] workspace number 8
+for_window [class="Steam"] floating enable
+
+# Game windows should be floating and focused
+for_window [class="steam_app_*"] floating enable, focus
+
+# Discord control
+for_window [class="discord"] floating enable, move scratchpad
+bindsym $mod+Shift+d [class="discord"] scratchpad show
+assign [class="discord"] workspace number 9
+
+# Firefox
+for_window [class="firefox"] border pixel 1
+
+# Floating windows
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Bluetooth-sendto"] floating enable
+for_window [class="Blueman-manager"] floating enable
+
+# ===== SYSTEM CONTROLS =====
+
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+
+# Restart i3 inplace
+bindsym $mod+Shift+r restart
+
+# Exit i3
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit i3?' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# Lock screen
+bindsym $mod+Ctrl+Shift+l exec i3lock -c 282a36
+
+# ===== RESIZE MODE =====
+mode "resize" {
+    # Resize bindings
+    bindsym j resize shrink width 10 px or 10 ppt
+    bindsym k resize grow height 10 px or 10 ppt
+    bindsym l resize shrink height 10 px or 10 ppt
+    bindsym semicolon resize grow width 10 px or 10 ppt
+
+    # Arrow keys
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+
+    # Return to normal mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# ===== STATUS BAR WITH VISUAL ENHANCEMENTS =====
+bar {
+    status_command i3blocks -c ~/.config/i3blocks/config
+    position bottom
+    height 32
+    font pango:JetBrainsMono Nerd Font 11
+    
+    # Enhanced bar colors with transparency support
+    colors {
+        background #282a3600  # Transparent background  
+        statusline #f8f8f2
+        separator  #6272a4
+        
+        # Workspace colors with transparency
+        focused_workspace  #bd93f9 #bd93f990 #282a36
+        active_workspace   #6272a4 #6272a480 #f8f8f2
+        inactive_workspace #44475a #44475a80 #bfbfbf
+        urgent_workspace   #ff5555 #ff5555 #f8f8f2
+        binding_mode       #ff79c6 #ff79c6 #282a36
+    }
+    
+    # System tray
+    tray_output primary
+    tray_padding 3
+    
+    # Separator between workspaces and status
+    separator_symbol " | "
+}
+exec_always --no-startup-id autotiling

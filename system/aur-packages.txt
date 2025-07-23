@@ -1,0 +1,3 @@
+jetbrains-toolbox 2.7.0.48109-1
+yay 12.5.0-1
+yay-debug 12.5.0-1

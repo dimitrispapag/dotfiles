@@ -1,0 +1,66 @@
+# i3blocks config with Nerd Font icons and colors
+separator=true
+separator_block_width=15
+markup=pango
+
+# CPU - 
+[cpu]
+label=<span color="#ff79c6"> </span>
+command=cpu=$(top -bn1 | grep "Cpu(s)" | awk -F'id,' '{ split($1, vs, ","); v=vs[length(vs)]; sub("%", "", v); print 100 - v }'); printf "<span color='#50fa7b'>%.1f%%</span>\n" $cpu
+interval=2
+
+# Memory - 
+[memory]
+label=<span color="#8be9fd"> </span>
+command=~/.config/i3blocks/scripts/memory.sh
+interval=10
+
+# CPU Temperature - 🌡
+[temperature]
+label=<span color="#ff5555">🌡 </span>
+command=temp=$(sensors | grep 'Package id 0' | awk '{print $4}' | sed 's/+//' | sed 's/°C.*//'); if [ -n "$temp" ]; then echo "<span color='#f8f8f2'>${temp}°C</span>"; else echo "<span color='#6272a4'>N/A</span>"; fi
+interval=10
+
+# GPU Temperature - 🎮
+[gpu-temp]
+label=<span color="#ff79c6">🎮 </span>
+command=gpu_temp=$(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits 2>/dev/null); if [ -n "$gpu_temp" ]; then echo "<span color='#f8f8f2'>${gpu_temp}°C</span>"; else echo "<span color='#6272a4'>N/A</span>"; fi
+interval=10
+
+# SSD Temperature - 💾
+[ssd-temp]
+label=<span color="#bd93f9">💾 </span>
+command=nvme_temp=$(sensors | grep 'Composite' | awk '{print $2}' | sed 's/+//' | sed 's/°C.*//'); if [ -n "$nvme_temp" ]; then echo "<span color='#f8f8f2'>${nvme_temp}°C</span>"; else echo "<span color='#6272a4'>N/A</span>"; fi
+interval=15
+
+# Disk - 
+[disk-home]
+label=<span color="#50fa7b">🏠 </span>
+command=disk=$(df /home | awk 'END{print $5}' | sed 's/%//'); used=$(df -h /home | awk 'END{print $3}'); total=$(df -h /home | awk 'END{print $2}'); if [ "$disk" -lt 50 ]; then color="#50fa7b"; elif [ "$disk" -lt 75 ]; then color="#f1fa8c"; elif [ "$disk" -lt 90 ]; then color="#ffb86c"; else color="#ff5555"; fi; echo "<span color='$color'>${used}/${total}</span>"
+interval=30
+
+# Volume -  /  (muted)
+[volume]
+label=<span color="#ffb86c"> </span>
+command=vol=$(pactl get-sink-volume @DEFAULT_SINK@ 2>/dev/null | grep -Po '\d+%' | head -1); mute=$(pactl get-sink-mute @DEFAULT_SINK@ 2>/dev/null); if [[ "$mute" == *"yes"* ]]; then echo "<span color='#6272a4'> MUTE</span>"; elif [ -z "$vol" ]; then echo "<span color='#ff5555'>N/A</span>"; else echo "<span color='#50fa7b'>$vol</span>"; fi
+interval=1
+signal=10
+
+# Weather - 
+[weather]
+label=<span color="#f1fa8c"> </span>
+command=~/.config/i3blocks/scripts/weather.sh
+interval=1800
+timeout=10
+
+# Date - 
+[date]
+label=<span color="#bd93f9"> </span>
+command=echo "<span color='#f8f8f2'>$(date '+%a %d %b')</span>"
+interval=60
+
+# Time - 
+[time]
+label=<span color="#8be9fd"> </span>
+command=echo "<span color='#f8f8f2'>$(date '+%H:%M:%S')</span>"
+interval=1
