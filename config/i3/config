@@ -2,7 +2,7 @@
 # Based on your existing setup with added visual enhancements
 
 # Modifier key (Super/Windows key)
-set $mod Mod4
+set $mod Mod1
 
 # Enhanced font with better sizing
 font pango:JetBrainsMono Nerd Font 11
